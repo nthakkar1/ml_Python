@@ -1,0 +1,30 @@
+Import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+--Above code is to import libraries that we will be using and to give them a shorter name.
+------------------------Extracting and loading data in a variable----------------------------------------------------------------
+dd = pd.read_csv(r"C:\Users\NTHAKKAR\Downloads\Iris.csv") ---This code will read data from csv file Iris and store it in variable dd
+    /* If the data has no headers modify the code as 
+          dd = pd.read_csv(r"C:\Users\NTHAKKAR\Downloads\Iris.csv",header=None)
+          Alternatively you can create column names and assign it to your data set
+            col_name=['col_name_a','col_name_b','col_name_c','col_name_d']
+            dd.columns=col_name
+    */
+-------------------------------To fetch Details of the data-----------------------------------------------------------
+dd.head()                                                   ---This will show top 5 records of the dataset
+dd.tail()                                                   ---This will show last 5 records of the dataset
+dd.describe()                                               ---This will describe your dataset, meaning how many rows you have, what is the mean, standard deviation of your data, etc.
+
+----------------------------------------------------------------------------
+Vizualization
+
+
+sns.pairplot(dd, hue='Species', height=3, aspect=1)         ---This code will show pair plots
+plt.show()
+
+
+
+dd.hist(edgecolor='black',linewidth=1.2,figsize=(12,8))      --- This code will show histogram for the data
+plt.show();

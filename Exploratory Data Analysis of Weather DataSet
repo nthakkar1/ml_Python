@@ -1,0 +1,79 @@
+https://drive.google.com/file/d/1JvD4Ss2yS3d9X36YkWqmqZXLamNWLSFJ/view     ---------Link to the dataset
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+ ---------------------------------------------Read CSV File using Pandas------------------------------------------------
+
+df=pd.read_csv(r"C:\Users\NTHAKKAR\Downloads\1. Weather Data.csv")     
+
+----------------------------------------------Analyse the data/Data Exploration--------------------------------------------------
+
+df.shape()                   ---------(8784, 8)
+df.describe()                --------- describes the data
+df.head()                    --------- shows top n rows, by default 5, if you want to increase give command as df.head(10)
+df.columns                   --------- displays name of each column
+df.dtypes                    --------- displays type of each column
+df['Weather'].unique()       --------- displays unique value in weather column
+df.nunique()                 --------- displays count of unique values in each column
+df['Weather'].value_counts() --------- Displays count of values of each weather data type
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Q ) Find out number of times the Weather is Exactly Clear
+    Ans 1) df['Weather'].value_counts()                        ---- Displays value of all weather type from which we can fetch how many times weather is clear
+    Ans 2) df[df.Weather=='Clear'].count()                     ---- Filters the result where condition is true and gives a count
+    Ans 3) df.groupby('Weather').get_group('Clear').count()    ---- Groups the data set on Weather and fetches values where group= Clear
+
+Q ) Find out number of times the Wind Speed is exactly 4 
+    Ans 1 ) df['Wind Speed'].value_counts()
+    Ans 2 ) df[df['Wind Speed_km/h']==4].count()
+    Ans 3 ) df.groupby('Wind Speed_km/h').get_group(4).count()
+
+Q ) Find out the number of null values in a column
+    Ans 1 ) df.isnull().sum()
+
+Q ) Rename column Weather to Weather Condition
+    Ans ) df.columns                                                        ------ Displays name of each column
+          df.rename(columns = {'Weather' : 'Weather Condtion'})             ------ However,this will only work while in the cell, once you execute another cell you will get                                                                                   orignal column name 
+      df.rename(columns = {'Weather' : 'Weather Condition'}, inplace=True)  ----- This code will change the name of column permanently
+Q ) What is the mean of visibility column 
+    Ans ) df.Visibility_km.mean()
+
+Q )  What is the standard deviation of Pressure column
+    Ans ) df.Press_kPa.std()
+
+Q) What is the variance of Relative humidity column
+    Ans ) df['Rel Hum_%'].var()
+
+Q ) Find all instances when snow was recorded
+    Ans ) df[Weather Condition].value_counts()
+          df[df[Weather Condition]=='Snow'].count()
+          df.groupby('Weather Condition').get_group('Snow')
+          df[df['Weather Condition'].str.contains('Snow')].count()
+
+Q ) Find all instances when Wind speed is greater than 24 and Visibility is 25
+    Ans ) df[(df[Wind Speed_km/h]>24) & (df.Visibility_km==25)].count()
+
+Q ) Find mean value of each column against Weather Condition
+     Ans ) df.groupby('Weather Condition').mean()
+
+Q ) Find the minimum and maximum value of each column against Weather Condition
+     Ans ) df.groupby('Weather Condition').min(), df.groupby('Weather Condition').max()
+
+Q ) Find all instances where Weather Condition is Fog
+     Ans ) df[df['Weather Condition']=='Fog'].count()
+
+Q ) Find all instances where Weather Condition = Clear and Visibility is above 40
+     Ans ) df[(df['Weather Condition']=='Clear') | (df['Visibility_km']>40)]
+
+Q ) Find all instances where Weather Condition = Clear and Relative HUmidity> 50 OR Visibility is above 40
+    Ans ) df[(df['Weather Condition']=='Clear') & (df['Rel Hum_%']>50) | (df['Visibility_km']>40)].count()
+
+
+
+
+
